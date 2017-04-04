@@ -12,11 +12,15 @@ import { StoryEventService } from '../story-event.service';
 })
 export class StoryDetailComponent implements OnInit {
   public story: StoryEvent;
+  public branches: StoryEvent[] = [];
 
   constructor(private router: Router, private storyEventService: StoryEventService) { }
 
   ngOnInit() {
     this.story = this.storyEventService.getStoryById(1);
+    this.story.branches.forEach((element) => {
+      this.branches.push(this.storyEventService.getStoryById(element));
+    });
   }
 
 }
