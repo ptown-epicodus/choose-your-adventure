@@ -1,9 +1,9 @@
 <p>
-  {{story.resultDescription}}
+  {{childCurrentStory.resultDescription}}
 </p>
 
-  <img src="{{story.imageLink}}">
+<img src="{{childCurrentStory.imageLink}}">
 
-  <div *ngFor="let branch of branches">
-    <button>{{branch.choiceDescription}}</button>
-  </div>
+<div *ngFor="let branch of branches">
+  <button (click)="branchSelected(branch)">{{branch.choiceDescription}}</button>
+</div>

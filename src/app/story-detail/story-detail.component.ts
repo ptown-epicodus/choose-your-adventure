@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StoryEvent } from '../story-event.model';
@@ -10,17 +10,30 @@ import { StoryEventService } from '../story-event.service';
   styleUrls: ['./story-detail.component.css'],
   providers: [StoryEventService]
 })
-export class StoryDetailComponent implements OnInit {
-  public story: StoryEvent;
-  public branches: StoryEvent[] = [];
+export class StoryDetailComponent implements OnInit, OnChanges {
+  @Input() childCurrentStory: StoryEvent;
+  @Output() branchSelectedSender = new EventEmitter();
+  public branches: StoryEvent[];
 
   constructor(private router: Router, private storyEventService: StoryEventService) { }
 
   ngOnInit() {
-    this.story = this.storyEventService.getStoryById(1);
-    this.story.branches.forEach((element) => {
+    this.populateBranches();
+  }
+
+  ngOnChanges() {
+    this.populateBranches();
+  }
+
+  populateBranches() {
+    this.branches = [];
+    this.childCurrentStory.branches.forEach((element) => {
       this.branches.push(this.storyEventService.getStoryById(element));
     });
+  }
+
+  branchSelected(branch: StoryEvent) {
+    this.branchSelectedSender.emit(branch);
   }
 
 }
