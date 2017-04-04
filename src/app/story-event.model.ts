@@ -1,10 +1,10 @@
 export class StoryEvent {
-  public id: number;
-  public imageLink: string;
-  public choiceDescription: string;
-  public resultDescription: string;
-  public branches: number[];
-  public points: number;
+  // public id: number;
+  // public imageLink: string;
+  // public choiceDescription: string;
+  // public resultDescription: string;
+  // public branches: number[];
+  // public points: number;
 
   constructor(
     public id: number,
